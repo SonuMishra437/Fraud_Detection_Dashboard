@@ -24,7 +24,7 @@ transactions group by `type`;
 - Step 10 : In Order To Detection of Fraud in each Transactions Type this sql query i use -- 5. Which type values actually contain fraud, and how many fraud cases per type
 select `type` as transactions_method,count(isfraud) as actual_fraud from transactions
 where isfraud = 1
-group by `type` etc;
+group by `type` etc.I Also Attached My SQL Query To Complete This Project.
            
 - Step 11 : Next When Comes To Python Then I am load dataset From SQL To Python Here I Use Database Connector SQLALCHEMY(SQLAlchemy is a Python library for working with SQL) databases
 - Step 12 : Ratings Visual was used to represent different ratings mentioned below,
