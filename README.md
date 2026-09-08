@@ -19,8 +19,9 @@ transactions group by `type`;
 transactions group by `type`;
 - Step 7 : Since the data contains Frauds in different Transactions Type, thus in order to represent Fraud count, i write this sql query select count(*) as total_transactions,`type` as transactions_method,sum(if(isfraud = 1,1,0)) fraud_count from 
 transactions group by `type`;
-- Step 8 : Visual filters (Slicers) were added for four fields named "Class", "Customer Type", "Gate Location" & "Type of travel".
-- Step 9 : Two card visuals were added to the canvas, one representing average departure delay in minutes & other representing average arrival delay in minutes.
+- Step 8 : In Order To Calculating Fraud Percentage In Each Transactions Type i simply write this sql query select `type` as transactions_method,(sum(if(isfraud = 1,1,0))/count(*))*100 'fraud_%' from 
+transactions group by `type`;
+- Step 9 : Six card visuals were added to the canvas, one representing average departure delay in minutes & other representing average arrival delay in minutes.
            Using visual level filter from the filters pane, basic filtering was used & null values were unselected for consideration into average calculation.
            
            Although, by default, while calculating average, blank values are ignored.
