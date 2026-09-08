@@ -8,25 +8,26 @@ This dashboard helps in fraud detection in transactions and understand the custo
 Transaction Type Transfer,cash_out,and How Fraud Behavior Change Over the time it is also in Transfer,cash_out category of Transactions.How many distinct accounts appear more than once in Fraud case.how many senders accounts having zero account balance in Genuine or Fraud case.How many receiver accounts having zero account balance in Genuine or Fraud case.what is  Average Fraud Amount in Each Transactions Type,How many Fraud Transactions,what is Total Transactions,what are the Fraud rate,How many actual Fraud Transactions .so that stakeholders get to know they make informed decision  & thus they can improve these Problems by identifying these area. It also lets them know them Fraud Percentage By in Each Transactions, thus since by using this dashboard they have identified these problem, they can further work on factors responsible for these unwanted Fraud.
 
 ### Steps followed 
-
-- Step 1 : Load Csv Dataset contain 6 million raws into My SQL Workbench
-- Step 2 : apply sql query to ask the question from dataset
-- Step 3 : since dataset contain 6 million raws so i create schema before importing & Then insert values into table.
-- Step 4 : It was observed that in none of the columns errors & empty values.
-- Step 5 : For calculating average Fraud amount in sql i write this sql query select `type` as transactions_method,avg(amount) as avg_amount from
+- Step 1 : I Use Multiple Tools To Complete This Project Like SQL,Python,Power BI
+- Step 2 : First Load Csv Dataset contain 6 million raws into My SQL Workbench
+- Step 3 : apply sql query to ask the question from dataset
+- Step 4 : since dataset contain 6 million raws so i create schema before importing & Then insert values into table.
+- Step 5 : It was observed that in none of the columns errors & empty values.
+- Step 6 : For calculating average Fraud amount in sql i write this sql query select `type` as transactions_method,avg(amount) as avg_amount from
 transactions group by `type`;
-- Step 6 : For Calculating Total Transactions By Each Transactions Type i write this sql query select count(*) as total_transactions,`type` as transactions_method from
+- Step 7 : For Calculating Total Transactions By Each Transactions Type i write this sql query select count(*) as total_transactions,`type` as transactions_method from
 transactions group by `type`;
-- Step 7 : Since the data contains Frauds in different Transactions Type, thus in order to represent Fraud count, i write this sql query select count(*) as total_transactions,`type` as transactions_method,sum(if(isfraud = 1,1,0)) fraud_count from 
+- Step 8 : Since the data contains Frauds in different Transactions Type, thus in order to represent Fraud count, i write this sql query select count(*) as total_transactions,`type` as transactions_method,sum(if(isfraud = 1,1,0)) fraud_count from 
 transactions group by `type`;
-- Step 8 : In Order To Calculating Fraud Percentage In Each Transactions Type i simply write this sql query select `type` as transactions_method,(sum(if(isfraud = 1,1,0))/count(*))*100 'fraud_%' from 
+- Step 9 : In Order To Calculating Fraud Percentage In Each Transactions Type i simply write this sql query select `type` as transactions_method,(sum(if(isfraud = 1,1,0))/count(*))*100 'fraud_%' from 
 transactions group by `type`;
-- Step 9 : Six card visuals were added to the canvas, one representing average departure delay in minutes & other representing average arrival delay in minutes.
-           Using visual level filter from the filters pane, basic filtering was used & null values were unselected for consideration into average calculation.
+- Step 10 : In Order To Detection of Fraud in each Transactions Type this sql query i use -- 5. Which type values actually contain fraud, and how many fraud cases per type
+select `type` as transactions_method,count(isfraud) as actual_fraud from transactions
+where isfraud = 1
+group by `type` etc;
            
-           Although, by default, while calculating average, blank values are ignored.
-- Step 10 : A bar chart was also added to the report design area representing the number of satisfied & neutral/unsatisfied customers. While creating this visual, field named "Gender" was also added to the Legends bucket, thus number of customers are also seggregated according the gender. 
-- Step 11 : Ratings Visual was used to represent different ratings mentioned below,
+- Step 11 : Next When Comes To Python Then I am load dataset From SQL To Python Here I Use Database Connector SQLALCHEMY(SQLAlchemy is a Python library for working with SQL) databases
+- Step 12 : Ratings Visual was used to represent different ratings mentioned below,
 
   (a) Baggage Handling
 
