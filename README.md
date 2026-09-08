@@ -5,17 +5,20 @@
 ## Problem Statement
 
 This dashboard helps in fraud detection in transactions and understand the customers better. It helps how Fraud Behavior affect transactions Mostly Fraud Cases Occurs 
-Transaction Type Transfer,cash_out,and How Fraud Behavior Change Over the time it is also in Transfer,cash_out category of Transactions.How many distinct accounts appear more than once in Fraud case.how many senders accounts having zero account balance in Genuine or Fraud case.How many receiver accounts having zero account balance in Genuine or Fraud case.what is  Average Fraud Amount in Each Transactions Type,How many Fraud Transactions,what is Total Transactions,what are the Fraud rate,How many actual Fraud Transactions .so that stakeholders get to know  they make informed decision to make business driven decision & thus they can improve these Problems by identifying these area. It also lets them know them Fraud Percentage By in Each Transactions, thus since by using this dashboard they have identified these problem, they can further work on factors responsible for these unwanted Fraud.
+Transaction Type Transfer,cash_out,and How Fraud Behavior Change Over the time it is also in Transfer,cash_out category of Transactions.How many distinct accounts appear more than once in Fraud case.how many senders accounts having zero account balance in Genuine or Fraud case.How many receiver accounts having zero account balance in Genuine or Fraud case.what is  Average Fraud Amount in Each Transactions Type,How many Fraud Transactions,what is Total Transactions,what are the Fraud rate,How many actual Fraud Transactions .so that stakeholders get to know they make informed decision  & thus they can improve these Problems by identifying these area. It also lets them know them Fraud Percentage By in Each Transactions, thus since by using this dashboard they have identified these problem, they can further work on factors responsible for these unwanted Fraud.
 
 ### Steps followed 
 
-- Step 1 : Load csv dataset(6 million raws) into workbench
+- Step 1 : Load Csv Dataset contain 6 million raws into My SQL Workbench
 - Step 2 : apply sql query to ask the question from dataset
-- Step 3 : since dataset contain 6 million raws so i create schema before importing.
+- Step 3 : since dataset contain 6 million raws so i create schema before importing & Then insert values into table.
 - Step 4 : It was observed that in none of the columns errors & empty values.
-- Step 5 : For calculating average Fraud amount , i simply 
-- Step 6 : In the report view, under the view tab, theme was selected.
-- Step 7 : Since the data contains various ratings, thus in order to represent ratings, a new visual was added using the three ellipses in the visualizations pane in report view. 
+- Step 5 : For calculating average Fraud amount in sql i write this sql query select `type` as transactions_method,avg(amount) as avg_amount from
+transactions group by `type`;
+- Step 6 : For Calculating Total Transactions By Each Transactions Type i write this sql query select count(*) as total_transactions,`type` as transactions_method from
+transactions group by `type`;
+- Step 7 : Since the data contains Frauds in different Transactions Type, thus in order to represent Fraud count, i write this sql query select count(*) as total_transactions,`type` as transactions_method,sum(if(isfraud = 1,1,0)) fraud_count from 
+transactions group by `type`;
 - Step 8 : Visual filters (Slicers) were added for four fields named "Class", "Customer Type", "Gate Location" & "Type of travel".
 - Step 9 : Two card visuals were added to the canvas, one representing average departure delay in minutes & other representing average arrival delay in minutes.
            Using visual level filter from the filters pane, basic filtering was used & null values were unselected for consideration into average calculation.
