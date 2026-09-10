@@ -9,7 +9,7 @@ Transaction Type Transfer,cash_out,and How Fraud Behavior Change Over the time i
 
 ### Steps followed 
 - Step 1 : I Use Multiple Tools To Complete This Project Like SQL,Python,Power BI
-- Step 2 : First Load Csv Dataset contain 6 million raws into My SQL Workbench
+- Step 2 : First Load Csv Dataset contain 6 million raws into SQL 
 - Step 3 : apply sql query to ask the question from dataset
 - Step 4 : since dataset contain 6 million raws so i create schema before importing & Then insert values into table.
 - Step 5 : It was observed that in none of the columns errors & empty values.
@@ -27,39 +27,63 @@ where isfraud = 1
 group by `type` etc.I Also Attached My SQL Query To Complete This Project.
            
 - Step 11 : Next When Comes To Python Then I am load dataset From SQL To Python Here I Use Database Connector SQLALCHEMY(SQLAlchemy is a Python library for working with SQL) databases
-- Step 12 : Ratings Visual was used to represent different ratings mentioned below,
+- Step 12 : For calculating Total descrepency in each transaction Type in python i use this query
+- des_crepency = """
 
-  (a) Baggage Handling
+select type,
+    count(*) as total_transactions,
+    sum(abs(case when `type` = 'CASH_IN'
+                 then oldbalanceorg + amount - newbalanceOrig
+                 else oldbalanceorg - amount - newbalanceOrig end))*100/sum(amount) as total_discrepancy_pct
+    
+from transactions
+group by type;
+"""
 
-  (b) Check-in Services
-  
-  (c) Cleanliness
-  
-  (d) Ease of online booking
-  
-  (e) Food & Drink
-  
-  (f) In-flight Entertainment
+dess_crepency_pct = pd.read_sql(des_crepency,engine)
+dess_crepency_pct
 
-  (g) In-flight Service
-  
-  (h) In-flight wifi service
-  
-  (i) Leg Room service
-  
-  (j) On-board service
-  
-  (k) Online boarding
-  
-  (l) Seat comfort
-  
-  (m) Departure & arrival time convenience
-  
-In our dataset, Some parameters were assigned value 0, representing those parameters are not applicable for some customers.
+## output 
 
-All these values have been ignored while calculating average rating for each of the parameters mentioned above.
+|   | type     | total_transactions | total_discrepancy_pct |
+|---|----------|-------------------:|----------------------:|
+| 0 | PAYMENT  | 2151495            | 51.147731             |
+| 1 | TRANSFER | 532909             | 95.151393             |
+| 2 | CASH_OUT | 2237500            | 83.803841             |
+| 3 | DEBIT    | 41432              | 36.435127             |
+| 4 | CASH_IN  | 1399284            | 0.002984              |
 
-- Step 12 : In the report view, under the insert tab, two text boxes were added to the canvas, in one of them name of the airlines was mentioned & in the other one company's tagline was written.
+In This We can easily see in transaction Type Transafer,Cash_out much more descrepency Also this Two Category Contain High Number Of Frauds.
+For Example in Cash_out Category 4116 count of Fraud Transactions and Transfer Category contain 4097 count of Frauds
+
+However Fraud rate in Cash_out Category is 18.4% and Transfer Category contain 76.88% Fraud rate .
+
+- Step 12 : For Analysis of Percentage of receiver accounts having zero account balancerec_acc =  """
+
+SELECT isFraud,
+       SUM(CASE WHEN newbalanceDest = 0 THEN 1 ELSE 0 END) AS receiver_zero_balance_count,
+       COUNT(*) AS total_transactions,
+       ROUND(SUM(CASE WHEN newbalanceDest = 0 THEN 1 ELSE 0 END) / COUNT(*) * 100, 2) 
+       AS receiver_zero_pct
+FROM transactions
+where namedest not  like 'M%'
+GROUP BY isFraud;
+
+"""
+
+- rec_acct = pd.read_sql(rec_acc,engine)
+- rec_acct
+- plt.figure(figsize=(10, 10))
+- plt.pie(rec_acct['receiver_zero_pct'],labels  = ['Fraud_case','Genuine_case'],colors = ["#6c5ce7","#00cec9"], 
+    startangle=45,  wedgeprops={'width': 0.4})
+- plt.title('receiver_zero_pct')
+- plt.legend(['Fraud_case','Genuine_case'],loc = 'upper right')
+- plt.axis('equal')
+- plt.show()
+
+
+
+           
 - Step 13 : In the report view, under the insert tab, using shapes option from elements group a rectangle was inserted & similarly using image option company's logo was added to the report design area. 
 - Step 14 : Calculated column was created in which, customers were grouped into various age groups.
 
