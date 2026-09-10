@@ -1,3 +1,4 @@
+
 # Fraud Detection Dashboard
 
 ### Dashboard Link :
@@ -58,7 +59,7 @@ For Example in Cash_out Category 4116 count of Fraud Transactions and Transfer C
 
 However Fraud rate in Cash_out Category is 18.4% and Transfer Category contain 76.88% Fraud rate .
 
-- Step 12 : For Analysis of Percentage of receiver accounts having zero account balancerec_acc =  """
+- Step 13 : For Analysis of Percentage of receiver accounts having zero account balancerec_acc =  """
 
 SELECT isFraud,
        SUM(CASE WHEN newbalanceDest = 0 THEN 1 ELSE 0 END) AS receiver_zero_balance_count,
@@ -81,30 +82,59 @@ GROUP BY isFraud;
 - plt.axis('equal')
 - plt.show()
 
+<img width="910" height="811" alt="output" src="https://github.com/user-attachments/assets/87acd414-8937-4a8a-8c25-4a7395593e3b" />
+
+## Output
+
+| isFraud   |   receiver_zero_balance_count |   total_transactions |   receiver_zero_pct |
+|:----------|------------------------------:|---------------------:|--------------------:|
+| Fraud     |                          4091 |                 8213 |               49.81 |
+| Genuine   |                        283847 |              4202912 |                6.75 |
+
+- In Each 2 fraud transactions after one Fraud Transactions receiver account balance  is zero.
+- In Fraud Case → 49.81% emptied and In Genuine Case → 6.75% emptied
+- Fraudulent transactions are 7.4× more likely than genuine transactions to leave the receiving account with a zero balance.
 
 
-           
-- Step 13 : In the report view, under the insert tab, using shapes option from elements group a rectangle was inserted & similarly using image option company's logo was added to the report design area. 
-- Step 14 : Calculated column was created in which, customers were grouped into various age groups.
+ 
+- Step 14 : for calculating Flagged transactions in pandas i have write flagged_trans =
+   """
+  select type  ,sum(case when isFraud = 1 then 1 else 0 end) as fraud_count,
+ sum(if(isFlaggedFraud=1,1,0)) as isFlaggedFraud,count(*) as total_transactions from transactions
+ group by type
+  """
+trans =  pd.read_sql(flagged_trans,engine).
 
-for creating new column following DAX expression was written;
-       
-        Age Group = 
-        
-        if(airline_passenger_satisfaction[Age]<=25, "0-25 (25 included)",
-        
-        if(airline_passenger_satisfaction[Age]<=50, "25-50 (50 included)",
-        
-        if(airline_passenger_satisfaction[Age]<=75, "50-75 (75 included)",
-        
-        "75-100 (100 included)")))
-        
-Snap of new calculated column ,
+## output
+ type     |   fraud_count |   isFlaggedFraud |   total_transactions |
+|:---------|--------------:|-----------------:|---------------------:|
+| PAYMENT  |             0 |                0 |              2151495 |
+| TRANSFER |          4097 |               16 |               532909 |
+| CASH_OUT |          4116 |                0 |              2237500 |
+| DEBIT    |             0 |                0 |                41432 |
+| CASH_IN  |             0 |                0 |              1399284 |
+- Step 15 : Calculated column was created in which, customers were grouped into various age groups.
 
-![Snap_1](https://user-images.githubusercontent.com/102996550/174089602-ab834a6b-62ce-4b62-8922-a1d241ec240e.jpg)
+- for creating fraud count by transactions type i have written code 
+- x = trans.plot(
+    x='type',
+    y='fraud_count',
+    kind='bar',
+    figsize=(8, 5),
+    legend=False,color = ['purple','darkmagenta']
+)
 
-        
-- Step 15 : New measure was created to find total count of customers.
+- plt.ylabel('Fraud_count')
+- plt.xlabel('Transactions_type')
+plt.title('Fraud Count by transactions Type',color = 'purple')
+
+-----------------------------------------------------------------------------------------------------------------------------------
+<img width="708" height="537" alt="outpu1" src="https://github.com/user-attachments/assets/27ea6ac7-5bda-4e59-ada4-3af250256b55" />
+
+In This Bar Chart We can See Actual Fraud Category is Cash_out and Transfer.
+
+- step - 15 And Next Comes To Power Bi i load dataset From mysql to Power Bi
+- Step 16 : New measure was created to find total count of customers.
 
 Following DAX expression was written for the same,
         
@@ -135,8 +165,7 @@ A card visual was used to represent count of customers.
          Total Distance Travelled = SUM(airline_passenger_satisfaction[Flight Distance])
     
  A card visual was used to represent this total distance.
- 
- 
+
  ![Snap_3](https://user-images.githubusercontent.com/102996550/174091618-bf770d6c-34c6-44d4-9f5e-49583a6d5f68.jpg)
  
  - Step 18 : The report was then published to Power BI Service.
@@ -151,47 +180,25 @@ A card visual was used to represent count of customers.
  
  # Report Snapshot (Power BI DESKTOP)
 
- 
-![Dashboard_upload](https://user-images.githubusercontent.com/102996550/174074051-4f08287a-0568-4fdf-8ac9-6762e0d8fa94.jpg)
+ https://github.com/user-attachments/assets/51262a6b-acfd-4dde-84de-5f78f463d73c
 
 # Insights
 
-A single page report was created on Power BI Desktop & it was then published to Power BI Service.
+A Three page report was created on Power BI Desktop & it was then published to Power BI Service.
 
 Following inferences can be drawn from the dashboard;
 
-### [1] Total Number of Customers = 129880
+### [1] Avg Fraud Amount = 1.4M($)
 
-   Number of satisfied Customers (Male) = 28159 (21.68 %)
+   Avg Fraud Amount in Transfer = 14,80,891.67($)
+   
+   Avg Fraud Amount in Cash_out = 14,55,102.59($)
 
-   Number of satisfied Customers (Female) = 28269 (21.76 %)
-
-   Number of neutral/unsatisfied customers (Male) = 35822 (27.58 %)
-
-   Number of neutral/unsatisfied customers (Female) = 37630 (28.97 %)
-
-
-           thus, higher number of customers are neutral/unsatisfied.
+  Remaining Category(Payment,Cash_IN,Debit) Does not Contain Frauds
+       thus Higher Number Fraud Contain Category is Transfer,Cash_out
            
-### [2] Average Ratings
-
-    a) Baggage Handling - 3.63/5
-    b) Check-in Service - 3.31/5
-    c) Cleanliness - 3.29/5
-    d) Ease of online booking - 2.88/5
-    e) Food & Drink - 3.21/5
-    f) In-flight Entertainment - 3.36/5
-    g) In-flight service - 3.64/5
-    h) In-flight Wifi service - 2.81/5
-    i) Leg room service - 3.37/5
-    j) On-board service - 3.38/5
-    k) Online boarding - 3.33/5
-    l) Seat comfort - 3.44/5
-    m) Departure & arrival convenience - 3.22/5
-  
-  while calculating average rating, null values have been ignored as they were not relevant for some customers. 
-  
-  These ratings will change if different visual filters will be applied.  
+### [2] In Transfer(4097) and Cash_out(fraud Count = 4116) Category Fraud Count in Cash_out is more than transfer
+### While Fraud rate in Transfer(76.88%) is more than Cash_out(18.4%)
   
   ### [3] Average Delay 
   
