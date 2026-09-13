@@ -1,9 +1,7 @@
 
 # Fraud Detection Dashboard
 
-### Dashboard Link :
-
-## Problem Statement
+Problem Statement
 
 This dashboard helps in fraud detection in transactions and understand the customers better. It helps how Fraud Behavior affect transactions Mostly Fraud Cases Occurs 
 Transaction Type Transfer,cash_out,and How Fraud Behavior Change Over the time it is also in Transfer,cash_out category of Transactions.How many distinct accounts appear more than once in Fraud case.how many senders accounts having zero account balance in Genuine or Fraud case.How many receiver accounts having zero account balance in Genuine or Fraud case.what is  Average Fraud Amount in Each Transactions Type,How many Fraud Transactions,what is Total Transactions,what are the Fraud rate,How many actual Fraud Transactions .so that stakeholders get to know they make informed decision  & thus they can improve these Problems by identifying these area. It also lets them know them Fraud Percentage By in Each Transactions, thus since by using this dashboard they have identified these problem, they can further work on factors responsible for these unwanted Fraud.
@@ -134,51 +132,50 @@ plt.title('Fraud Count by transactions Type',color = 'purple')
 In This Bar Chart We can See Actual Fraud Category is Cash_out and Transfer.
 
 - step - 15 And Next Comes To Power Bi i load dataset From mysql to Power Bi
-- Step 16 : New measure was created to find total count of customers.
+- Step 16 : New measure was created to find Average Fraud Amount.
 
 Following DAX expression was written for the same,
-        
-        Count of Customers = COUNT(airline_passenger_satisfaction[ID])
-        
-A card visual was used to represent count of customers.
+     
+     Avg_amount_fraud = CALCULATE(AVERAGE(fraud_detection[amount]),fraud_detection[isFraud]=1)
+     
+ A card visual was used to represent Average Fraud Amount.
+ 
+ <img width="150" height="101" alt="{771304E5-9D1F-4C12-BBDD-E94070A259E9}" src="https://github.com/user-attachments/assets/f567d380-5d71-4c30-8fb4-00ec90859f09" />
 
-![Snap_Count](https://user-images.githubusercontent.com/102996550/174090154-424dc1a4-3ff7-41f8-9617-17a2fb205825.jpg)
+- Step 17 : New measure was created to find Fraud Transactions.
+  Following DAX expression was written for the same,
+                     
 
-        
- - Step 16 : New measure was created to find  % of customers,
+       fraud_trans =  CALCULATE(   COUNTROWS(fraud_detection),fraud_detection[isFraud] = 1)
+ A card visual was used to represent Fraud Transactions.
  
- Following DAX expression was written to find % of customers,
- 
-         % Customers = (DIVIDE(airline_passenger_satisfaction[Count of Customers], 129880)*100)
- 
- A card visual was used to represent this perecntage.
- 
- Snap of % of customers who preferred business class
- 
- ![Snap_Percentage](https://user-images.githubusercontent.com/102996550/174090653-da02feb4-4775-4a95-affb-a211ca985d07.jpg)
+ <img width="221" height="109" alt="{AB860FEE-425E-4422-B450-8B0663A101F4}" src="https://github.com/user-attachments/assets/5f302b28-842f-4dbf-abd9-dd066b8cfcdc" />
 
- 
- - Step 17 : New measure was created to calculate total distance travelled by flights & a card visual was used to represent total distance.
+ - Step 18 : New measure was created to calculate Fraud rate.
  
  Following DAX expression was written to find total distance,
  
-         Total Distance Travelled = SUM(airline_passenger_satisfaction[Flight Distance])
+         Fraud_rate = DIVIDE([Fraud_transactions],[total_transactions],0)*100
     
- A card visual was used to represent this total distance.
+ A card visual was used to represent Fraud rate.
 
- ![Snap_3](https://user-images.githubusercontent.com/102996550/174091618-bf770d6c-34c6-44d4-9f5e-49583a6d5f68.jpg)
- 
- - Step 18 : The report was then published to Power BI Service.
- 
- 
-![Publish_Message](https://user-images.githubusercontent.com/102996550/174094520-3a845196-97e6-4d44-8760-34a64abc3e77.jpg)
+<img width="180" height="101" alt="{42A61CB3-8C68-45EA-97E8-D63956F349DC}" src="https://github.com/user-attachments/assets/393347e4-9660-44e7-ba9d-ade6b89459d3" />
 
-# Snapshot of Dashboard (Power BI Service)
 
-![dashboard_snapo](https://user-images.githubusercontent.com/102996550/174096257-11f1aae5-203d-44fc-bfca-25d37faf3237.jpg)
+
+# Snapshot of Dashboard 
+# First Page
+<img width="1376" height="773" alt="image" src="https://github.com/user-attachments/assets/a1d85c71-9c73-48f9-a8a5-579533fb0902" />
+
+# Second Page
+<img width="1370" height="773" alt="{CF5ECE9B-1D8F-440C-B9B1-D859D721F86E}" src="https://github.com/user-attachments/assets/a1aa815b-64a3-425e-b0f3-d470bc179cbe" />
+
+# Final Page
+<img width="1336" height="742" alt="{03E2F7A3-63F4-4747-916D-D99D2CF82FE7}" src="https://github.com/user-attachments/assets/78974c46-f93e-4739-9ba7-4f6450d1ae59" />
+
 
  
- # Report Snapshot (Power BI DESKTOP)
+ # Project Video
 
  https://github.com/user-attachments/assets/51262a6b-acfd-4dde-84de-5f78f463d73c
 
@@ -200,48 +197,31 @@ Following inferences can be drawn from the dashboard;
 ### [2] In Transfer(4097) and Cash_out(fraud Count = 4116) Category Fraud Count in Cash_out is more than transfer
 ### While Fraud rate in Transfer(76.88%) is more than Cash_out(18.4%)
   
-  ### [3] Average Delay 
+  ### [3] Fraud Transactions Occurs In  Cash_out,Transafer Category only.
   
-      a) Average delay in arrival(minutes) - 15.09
-      b) Average delay in departure(minutes) - 14.71
-Average delay will change if different visual filters will be applied.
+      a) Fraud Transactions in Transfer  - 4116
+      b) Fraud Transactions in Cash_out - 4097
 
- ### [4] Some other insights
  
- ### Class
+ ### Fraud Behavior Over Time.
  
- 1.1) 47.87 % customers travelled by Business class.
- 
- 1.2) 44.89 % customers travelled by Economy class.
- 
- 1.3) 7.25 % customers travelled by Economy plus class.
- 
-         thus, maximum customers travelled by Business class.
- 
- ### Age Group
- 
- 2.1)  21.69 % customers belong to '0-25' age group.
- 
- 2.2)  52.44 % customers belong to '25-50' age group.
- 
- 2.3)  25.57 % customers belong to '50-75' age group.
- 
- 2.4)  0.31 % customers belong to '75-100' age group.
- 
-         thus, maximum customers belong to '25-50' age group.
-         
-### Customer Type
+It Maximum 9th Hour of day 
+It Minimum at 23th Hour Of day
+      
+### Fraud Percentage
 
-3.1) 18.31 % customers have customer type 'First time'.
+3.1) 76.88 % customers have customer type 'First time'.
 
-3.2) 81.69 % customers have customer type 'returning'.
+3.2) 18.40 % customers have customer type 'returning'.
        
-       thus, more customers have customer type 'returning'.
+       thus,  Fraud rate most Occurs in Transfer 
 
-### Type of travel
+### Discrepancy Level in Transactions Type.
 
-4.1) 69.06 % customers have travel type 'Business'.
+4.1) Discrepancy rate in Transfer  = 95.15%
+4.1) Discrepancy rate in Cash_out  = 83.80%
+4.1) Discrepancy rate in Payment  = 51.15%
+4.1) Discrepancy rate in Cash_in  = 0.00%
+4.1) Discrepancy rate in  Debit  = 36.44%
 
-4.2) 30.94 % customers have travel type 'Personal'.
-
-        thus, more customers have travel type 'Business'.
+        thus, Discrepancy Level Order is  Transfer>Cash_out>Payment>Cash_In>Debit
