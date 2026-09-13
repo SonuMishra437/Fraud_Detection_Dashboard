@@ -4,7 +4,7 @@
 Problem Statement
 
 This dashboard helps in fraud detection in transactions and understand the customers better. It helps how Fraud Behavior affect transactions Mostly Fraud Cases Occurs 
-Transaction Type Transfer,cash_out,and How Fraud Behavior Change Over the time it is also in Transfer,cash_out category of Transactions.How many distinct accounts appear more than once in Fraud case.how many senders accounts having zero account balance in Genuine or Fraud case.How many receiver accounts having zero account balance in Genuine or Fraud case.what is  Average Fraud Amount in Each Transactions Type,How many Fraud Transactions,what is Total Transactions,what are the Fraud rate,How many actual Fraud Transactions .so that stakeholders get to know they make informed decision  & thus they can improve these Problems by identifying these area. It also lets them know them Fraud Percentage By in Each Transactions, thus since by using this dashboard they have identified these problem, they can further work on factors responsible for these unwanted Fraud.
+Transaction Type Transfer,cash_out,and How Fraud Behavior Change Over the time it is also in Transfer,cash_out category of Transactions.How many distinct accounts appear more than once in Fraud cas[...]
 
 ### Steps followed 
 - Step 1 : I Use Multiple Tools To Complete This Project Like SQL,Python,Power BI
@@ -16,9 +16,9 @@ Transaction Type Transfer,cash_out,and How Fraud Behavior Change Over the time i
 transactions group by `type`;
 - Step 7 : For Calculating Total Transactions By Each Transactions Type i write this sql query select count(*) as total_transactions,`type` as transactions_method from
 transactions group by `type`;
-- Step 8 : Since the data contains Frauds in different Transactions Type, thus in order to represent Fraud count, i write this sql query select count(*) as total_transactions,`type` as transactions_method,sum(if(isfraud = 1,1,0)) fraud_count from 
+- Step 8 : Since the data contains Frauds in different Transactions Type, thus in order to represent Fraud count, i write this sql query select count(*) as total_transactions,`type` as transaction[...]
 transactions group by `type`;
-- Step 9 : In Order To Calculating Fraud Percentage In Each Transactions Type i simply write this sql query select `type` as transactions_method,(sum(if(isfraud = 1,1,0))/count(*))*100 'fraud_%' from 
+- Step 9 : In Order To Calculating Fraud Percentage In Each Transactions Type i simply write this sql query select `type` as transactions_method,(sum(if(isfraud = 1,1,0))/count(*))*100 'fraud_%' f[...]
 transactions group by `type`;
 - Step 10 : In Order To Detection of Fraud in each Transactions Type this sql query i use -- 5. Which type values actually contain fraud, and how many fraud cases per type
 select `type` as transactions_method,count(isfraud) as actual_fraud from transactions
@@ -80,7 +80,7 @@ GROUP BY isFraud;
 - plt.axis('equal')
 - plt.show()
 
-<img width="910" height="811" alt="output" src="https://github.com/user-attachments/assets/87acd414-8937-4a8a-8c25-4a7395593e3b" />
+<center><img width="510" height="411" alt="output" src="https://github.com/user-attachments/assets/87acd414-8937-4a8a-8c25-4a7395593e3b" /></center>
 
 ## Output
 
@@ -94,7 +94,7 @@ GROUP BY isFraud;
 - Fraudulent transactions are 7.4× more likely than genuine transactions to leave the receiving account with a zero balance.
 
 
- 
+  
 - Step 14 : for calculating Flagged transactions in pandas i have write flagged_trans =
    """
   select type  ,sum(case when isFraud = 1 then 1 else 0 end) as fraud_count,
@@ -127,7 +127,7 @@ trans =  pd.read_sql(flagged_trans,engine).
 plt.title('Fraud Count by transactions Type',color = 'purple')
 
 -----------------------------------------------------------------------------------------------------------------------------------
-<img width="708" height="537" alt="outpu1" src="https://github.com/user-attachments/assets/27ea6ac7-5bda-4e59-ada4-3af250256b55" />
+<center><img width="708" height="537" alt="outpu1" src="https://github.com/user-attachments/assets/27ea6ac7-5bda-4e59-ada4-3af250256b55" /></center>
 
 In This Bar Chart We can See Actual Fraud Category is Cash_out and Transfer.
 
@@ -140,7 +140,7 @@ Following DAX expression was written for the same,
      
  A card visual was used to represent Average Fraud Amount.
  
- <img width="150" height="101" alt="{771304E5-9D1F-4C12-BBDD-E94070A259E9}" src="https://github.com/user-attachments/assets/f567d380-5d71-4c30-8fb4-00ec90859f09" />
+ <center><img width="150" height="101" alt="{771304E5-9D1F-4C12-BBDD-E94070A259E9}" src="https://github.com/user-attachments/assets/f567d380-5d71-4c30-8fb4-00ec90859f09" /></center>
 
 - Step 17 : New measure was created to find Fraud Transactions.
   Following DAX expression was written for the same,
@@ -149,7 +149,7 @@ Following DAX expression was written for the same,
        fraud_trans =  CALCULATE(   COUNTROWS(fraud_detection),fraud_detection[isFraud] = 1)
  A card visual was used to represent Fraud Transactions.
  
- <img width="221" height="109" alt="{AB860FEE-425E-4422-B450-8B0663A101F4}" src="https://github.com/user-attachments/assets/5f302b28-842f-4dbf-abd9-dd066b8cfcdc" />
+ <center><img width="221" height="109" alt="{AB860FEE-425E-4422-B450-8B0663A101F4}" src="https://github.com/user-attachments/assets/5f302b28-842f-4dbf-abd9-dd066b8cfcdc" /></center>
 
  - Step 18 : New measure was created to calculate Fraud rate.
  
@@ -159,25 +159,25 @@ Following DAX expression was written for the same,
     
  A card visual was used to represent Fraud rate.
 
-<img width="180" height="101" alt="{42A61CB3-8C68-45EA-97E8-D63956F349DC}" src="https://github.com/user-attachments/assets/393347e4-9660-44e7-ba9d-ade6b89459d3" />
+<center><img width="180" height="101" alt="{42A61CB3-8C68-45EA-97E8-D63956F349DC}" src="https://github.com/user-attachments/assets/393347e4-9660-44e7-ba9d-ade6b89459d3" /></center>
 
 
 
 # Snapshot of Dashboard 
 # First Page
-<img width="1376" height="773" alt="image" src="https://github.com/user-attachments/assets/a1d85c71-9c73-48f9-a8a5-579533fb0902" />
+<center><img width="1376" height="773" alt="image" src="https://github.com/user-attachments/assets/a1d85c71-9c73-48f9-a8a5-579533fb0902" /></center>
 
 # Second Page
-<img width="1370" height="773" alt="{CF5ECE9B-1D8F-440C-B9B1-D859D721F86E}" src="https://github.com/user-attachments/assets/a1aa815b-64a3-425e-b0f3-d470bc179cbe" />
+<center><img width="1370" height="773" alt="{CF5ECE9B-1D8F-440C-B9B1-D859D721F86E}" src="https://github.com/user-attachments/assets/a1aa815b-64a3-425e-b0f3-d470bc179cbe" /></center>
 
 # Final Page
-<img width="1336" height="742" alt="{03E2F7A3-63F4-4747-916D-D99D2CF82FE7}" src="https://github.com/user-attachments/assets/78974c46-f93e-4739-9ba7-4f6450d1ae59" />
+<center><img width="1336" height="742" alt="{03E2F7A3-63F4-4747-916D-D99D2CF82FE7}" src="https://github.com/user-attachments/assets/78974c46-f93e-4739-9ba7-4f6450d1ae59" /></center>
 
 
- 
- # Project Video
+  
+  # Project Video
 
- https://github.com/user-attachments/assets/51262a6b-acfd-4dde-84de-5f78f463d73c
+  https://github.com/user-attachments/assets/51262a6b-acfd-4dde-84de-5f78f463d73c
 
 # Insights
 
@@ -203,25 +203,25 @@ Following inferences can be drawn from the dashboard;
       b) Fraud Transactions in Cash_out - 4097
 
  
- ### Fraud Behavior Over Time.
- 
-It Maximum 9th Hour of day 
-It Minimum at 23th Hour Of day
-      
-### Fraud Percentage
-
-3.1) 76.88 % customers have customer type 'First time'.
-
-3.2) 18.40 % customers have customer type 'returning'.
+  ### Fraud Behavior Over Time.
+  
+ It Maximum 9th Hour of day 
+ It Minimum at 23th Hour Of day
        
-       thus,  Fraud rate most Occurs in Transfer 
+ ### Fraud Percentage
 
-### Discrepancy Level in Transactions Type.
+ 3.1) 76.88 % customers have customer type 'First time'.
 
-4.1) Discrepancy rate in Transfer  = 95.15%
-4.1) Discrepancy rate in Cash_out  = 83.80%
-4.1) Discrepancy rate in Payment  = 51.15%
-4.1) Discrepancy rate in Cash_in  = 0.00%
-4.1) Discrepancy rate in  Debit  = 36.44%
+ 3.2) 18.40 % customers have customer type 'returning'.
+        
+        thus,  Fraud rate most Occurs in Transfer 
 
-        thus, Discrepancy Level Order is  Transfer>Cash_out>Payment>Cash_In>Debit
+ ### Discrepancy Level in Transactions Type.
+
+ 4.1) Discrepancy rate in Transfer  = 95.15%
+ 4.1) Discrepancy rate in Cash_out  = 83.80%
+ 4.1) Discrepancy rate in Payment  = 51.15%
+ 4.1) Discrepancy rate in Cash_in  = 0.00%
+ 4.1) Discrepancy rate in  Debit  = 36.44%
+
+         thus, Discrepancy Level Order is  Transfer>Cash_out>Payment>Cash_In>Debit
